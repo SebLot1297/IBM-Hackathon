@@ -112,6 +112,17 @@ node .bob/skills/reviewlens/scripts/merge-findings.cjs \
 
 Then render the report using the template in `assets/report-template.md`.
 
+> ⚠️ **RENDER RULES — read before calling `create_html_artifact`:**
+>
+> 1. The output format is **ATTENTION QUEUE**, not "PR Review" or "Code Review". Use the exact section headings from `assets/report-template.md`: 🔴 REVIEW NOW, 🟠 REVIEW, 🟡 REVIEW IF TIME, 🟢 SAFE TO SKIM, ⚪ INFO.
+> 2. **Every single finding card** MUST display `Confidence: N%`. No exceptions — not even for low-severity findings. A card without a confidence percentage is malformed.
+> 3. Every `critical` or `high` finding MUST display its `evidence` array as a bulleted "Why:" list beneath the confidence line.
+> 4. Merged findings MUST show a `Supported by:` line listing the contributing agents (e.g. "Supported by: • Logic analysis  • Coverage analysis").
+> 5. **DO NOT invent a "Passing" or "✅ LGTM" section.** ReviewLens is a triage tool, not a code review. Its only job is surfacing items that need attention. Positives are not reported.
+> 6. **DO NOT use definitive bug language.** Never write "Bug found" or "Security vulnerability" as a finding title. Always hedge: "Potential off-by-one (Confidence: 89%)" not "Off-by-one bug".
+> 7. The summary bar counts MUST use the ATTENTION QUEUE tier labels (REVIEW NOW / REVIEW / REVIEW IF TIME / SAFE TO SKIM), not generic Critical/Medium/Low/Pass labels.
+> 8. Include the ANALYSIS BREAKDOWN section (Style / Logic / Coverage / Scope finding counts + signal ratio).
+
 ---
 
 ## Required Output Schema
@@ -350,6 +361,8 @@ Evidence: [union of all evidence arrays]
 2. Never present "BUG FOUND" — always present "Potential bug (Confidence: X%)"
 3. For high-risk findings, optionally ask Bob to inspect surrounding code or run targeted tests
 4. Coverage gaps must be confirmed by repository-wide test search
+5. Finding **summaries** must be hedged. Never use bare nouns like "Off-by-one bug" or "Hardcoded secret key" — always frame as "Potential off-by-one in pagination (Confidence: N%)" or "Possible credential exposure via hardcoded secret (Confidence: N%)".
+6. **Never add a "Passing", "✅ LGTM", or "positive findings" section.** The output is an attention queue, not a balanced review. Only report items that need attention.
 
 ---
 

@@ -1,6 +1,14 @@
 # ReviewLens Attention Queue Report
 
+> ⚠️ **Template rules (apply EVERY time you render this report):**
+> - Section headings are FIXED: use exactly 🔴 REVIEW NOW, 🟠 REVIEW, 🟡 REVIEW IF TIME, 🟢 SAFE TO SKIM, ⚪ INFO.
+> - Every finding card MUST include `Confidence: N%`. Missing confidence = malformed card.
+> - Do NOT add a "Passing", "✅ LGTM", or positive-findings section.
+> - Summary bar uses tier labels (REVIEW NOW / REVIEW / REVIEW IF TIME / SAFE TO SKIM), NOT Critical/Medium/Low/Pass.
+> - Finding titles must be hedged: "Potential X (Confidence: N%)" not "X bug" or "X vulnerability".
+
 ---
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        REVIEWLENS ATTENTION QUEUE
        {{PR_TITLE}}
@@ -26,7 +34,7 @@ Overall: {{ATTENTION_LEVEL}}  (CRITICAL | HIGH | MEDIUM | LOW)
 {{FILE}}:{{LINE_START}}
 {{SUMMARY}}
 
-Confidence: {{CONFIDENCE_PCT}}%
+Confidence: {{CONFIDENCE_PCT}}%        ← REQUIRED — never omit
 {{#if SUPPORTED_BY}}
 Supported by: {{SUPPORTED_BY}}
 {{/if}}
@@ -50,7 +58,10 @@ Repository rule: {{CONTRIBUTING_RULE}}
 {{FILE}}:{{LINE_START}}
 {{SUMMARY}}
 
-Confidence: {{CONFIDENCE_PCT}}%
+Confidence: {{CONFIDENCE_PCT}}%        ← REQUIRED — never omit
+{{#if SUPPORTED_BY}}
+Supported by: {{SUPPORTED_BY}}
+{{/if}}
 {{#each EVIDENCE}}
   • {{this}}
 {{/each}}
@@ -67,7 +78,7 @@ Confidence: {{CONFIDENCE_PCT}}%
 {{FILE}}
 {{SUMMARY}}
 
-Confidence: {{CONFIDENCE_PCT}}%
+Confidence: {{CONFIDENCE_PCT}}%        ← REQUIRED — never omit
 {{#if UNEXPECTED_FILES}}
 Unexpected files: {{UNEXPECTED_FILES}}
 {{/if}}
@@ -84,6 +95,22 @@ Unexpected files: {{UNEXPECTED_FILES}}
 {{STYLE_COUNT}} formatting / naming changes
 Collapsed into 1 summary.
 Files: {{STYLE_FILES_SAMPLE}}
+{{/if}}
+
+---
+
+## ⚪ INFO
+
+{{#each INFO_FINDINGS}}
+{{FILE}}
+{{SUMMARY}}
+
+Confidence: {{CONFIDENCE_PCT}}%
+
+---
+{{/each}}
+{{#if NO_INFO}}
+  (none)
 {{/if}}
 
 ---
