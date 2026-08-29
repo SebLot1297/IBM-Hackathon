@@ -31,6 +31,100 @@ Given a noisy pull request with dozens of changed files, ReviewLens:
 
 ---
 
+## How to Use ReviewLens
+
+Copy and paste **any one** of the prompts below into Bob (Agent mode) to activate the skill.
+Bob will load the skill automatically and begin the triage workflow.
+
+---
+
+### ▶ Basic — triage the current branch against `main`
+
+```
+ReviewLens analyze this PR against main
+```
+
+---
+
+### ▶ Custom base branch
+
+```
+ReviewLens analyze this PR against develop
+```
+
+Replace `develop` with whatever branch you are merging into (e.g. `release/1.4`, `staging`).
+
+---
+
+### ▶ With a PR title and description (recommended for best results)
+
+```
+ReviewLens analyze this PR
+
+PR title: <your title here>
+PR description:
+<paste your PR description here>
+Base branch: main
+```
+
+Providing the PR title and description lets the **Scope Agent** compare what the PR *claims* to change
+against what was *actually* changed — one of the most useful signals in the report.
+
+---
+
+### ▶ Minimal / one-liner (Bob will ask for missing context)
+
+```
+reviewlens
+```
+
+Bob will prompt you for the base branch, PR title, and description if they are not supplied.
+
+---
+
+### ▶ Other accepted phrasings
+
+All of the following phrases trigger ReviewLens identically:
+
+```
+triage this PR
+triage PR
+what deserves attention in this diff
+ReviewLens
+```
+
+---
+
+### Prerequisites
+
+| Requirement | Details |
+|-------------|---------|
+| **Bob mode** | Must be in **Agent mode** — Plan and Ask modes cannot spawn subagents |
+| **Git repo** | The workspace must be a Git repository with at least one commit on the base branch |
+| **Node.js** | Required for the merge-findings script (`node` must be on PATH) |
+| **Bash** | Required for the diff-collection and validation scripts (Git Bash / WSL on Windows) |
+
+> **Windows users:** If Bash is unavailable, tell Bob: *"run in demo mode"* — Bob will run the
+> four reviewers sequentially in the current session instead of spawning subagents.
+> Results are identical; only parallelism is lost.
+
+---
+
+### What you get
+
+After roughly 1–3 minutes, Bob renders an **ATTENTION QUEUE** HTML report with:
+
+- 🔴 **REVIEW NOW** — critical or high-confidence logic/security findings
+- 🟠 **REVIEW** — high-severity findings worth close attention
+- 🟡 **REVIEW IF TIME** — medium-severity and scope concerns
+- 🟢 **SAFE TO SKIM** — low-severity style and formatting noise
+- ⚪ **INFO** — informational signals only
+
+Every card shows a `Confidence: N%` score and — for critical/high findings — a `Why:` evidence list
+so you can verify the AI's reasoning before acting on it.
+
+---
+
 ## Quick Start
 
 When the user says "ReviewLens" or "triage this PR":
