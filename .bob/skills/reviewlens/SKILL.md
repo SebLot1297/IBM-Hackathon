@@ -110,9 +110,9 @@ node .bob/skills/reviewlens/scripts/merge-findings.cjs \
   > /tmp/reviewlens-report.json
 ```
 
-Then render the report using the template in `assets/report-template.md`.
+Then render the report using the plain-text template in `assets/report-template.md`.
 
-> ⚠️ **RENDER RULES — read before calling `create_html_artifact`:**
+> ⚠️ **RENDER RULES — read before rendering:**
 >
 > 1. The output format is **ATTENTION QUEUE**, not "PR Review" or "Code Review". Use the exact section headings from `assets/report-template.md`: 🔴 REVIEW NOW, 🟠 REVIEW, 🟡 REVIEW IF TIME, 🟢 SAFE TO SKIM, ⚪ INFO.
 > 2. **Every single finding card** MUST display `Confidence: N%`. No exceptions — not even for low-severity findings. A card without a confidence percentage is malformed.
@@ -122,6 +122,7 @@ Then render the report using the template in `assets/report-template.md`.
 > 6. **DO NOT use definitive bug language.** Never write "Bug found" or "Security vulnerability" as a finding title. Always hedge: "Potential off-by-one (Confidence: 89%)" not "Off-by-one bug".
 > 7. The summary bar counts MUST use the ATTENTION QUEUE tier labels (REVIEW NOW / REVIEW / REVIEW IF TIME / SAFE TO SKIM), not generic Critical/Medium/Low/Pass labels.
 > 8. Include the ANALYSIS BREAKDOWN section (Style / Logic / Coverage / Scope finding counts + signal ratio).
+> 9. **When calling `create_html_artifact`**, use `id: "reviewlens_report"` and follow the CSS design in the **HTML Design Reference** section of `assets/report-template.md` exactly — same palette, same classes, same component shapes every time. Do not deviate from that design.
 
 ---
 
