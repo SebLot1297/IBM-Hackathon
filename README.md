@@ -1,68 +1,57 @@
-# IBM Hackathon GitHub Project Template
+# ReviewLens
 
-This GitHub project template is for IBM Hackathon projects. It includes pre-configured security files to help prevent accidental credential commits and potential account suspension during the hackathon.
+**AI-powered pull request attention triage for IBM Bob**
 
-## 🚀 Quick Start
+ReviewLens helps engineers quickly identify which code changes deserve the most review attention.
 
-1. **Use this template to create your project:**
-   - Click "Use this template" button above and select "Create a new repository"
-   - Name your repository
-   - Click "Create repository"
+Instead of treating every pull request change equally, ReviewLens analyzes the change and produces a ranked attention queue that separates routine modifications from changes that may require deeper engineering review.
 
-2. **Clone your new repository:**
-
-   ```bash
-   git clone https://github.com/HACKATHON-ORG/your-repo-name.git
-   cd your-repo-name
-   ```
-
-3. **Set up environment variables:**
-
-   ```bash
-   # Copy the example file
-   cp .env.example .env
-
-   # Edit .env with your actual credentials
-   # Use your preferred editor (nano, vim, code, etc.)
-   nano .env
-   ```
-
-4. **Verify .gitignore is working:**
-
-   ```bash
-   # This should NOT show .env file
-   git status
-
-   # This should confirm .env is ignored
-   git check-ignore -v .env
-   ```
-
-5. **Start developing!**
-
-## 🔒 Security Features
-
-This template includes:
-
-- **`.gitignore`** - Prevents committing credentials and live session files
-- **`.bobignore`** - Prevents AI assistants from logging credentials
-- **`.env.example`** - Template for your environment variables
-
-## 📋 Before Every Commit
-
-Always run this checklist:
-
-- [ ] Reviewed `git diff` for sensitive data
-- [ ] No hardcoded API keys or passwords
-- [ ] `.env` file is NOT in staged changes
-- [ ] No files with "credential" or "secret" in name
-- [ ] Used environment variables for all credentials
-
-## 🆘 Need Help?
-
-- Read [SECURITY.md](SECURITY.MD) for detailed guidelines
-- Contact hackathon support through mentor channel
-- Ask in the hackathon Slack workspace
+Built for the **IBM Bob Hackathon**.
 
 ---
 
-**Remember:** Security is everyone's responsibility. When in doubt, ask for help!
+## Overview
+
+Modern pull requests can contain dozens or hundreds of changed lines, but not every change carries the same engineering risk.
+
+ReviewLens was designed to answer a simple question:
+
+> **Where should an engineer look first?**
+
+The system analyzes code changes and prioritizes them based on signals that suggest a change may deserve additional attention.
+
+Rather than replacing code review, ReviewLens acts as a triage layer that helps reviewers focus their limited attention on the most important parts of a pull request.
+
+---
+
+
+### Example Output 
+This is Output from the neatly generated file. output is also generated in the agent chat
+
+<img width="2832" height="1408" alt="image" src="https://github.com/user-attachments/assets/9e848c55-ce5d-444a-b88d-121491fa04e5" />
+<img width="2870" height="1410" alt="image" src="https://github.com/user-attachments/assets/e3cd6823-d10f-4bbb-ba8f-d99df4a67931" />
+<img width="2850" height="1404" alt="image" src="https://github.com/user-attachments/assets/f344db7f-9f88-4bcd-831f-6793f5d16e0b" />
+<img width="2822" height="1400" alt="image" src="https://github.com/user-attachments/assets/049733f2-5e17-4498-bd1a-fe707629993c" />
+<img width="2838" height="1446" alt="image" src="https://github.com/user-attachments/assets/0ec1d543-61d2-4778-b8cd-68ae7854c5de" />
+
+
+
+## How It Works
+
+```text
+Pull Request / Code Changes
+            │
+            ▼
+┌───────────────────────────┐
+│         ReviewLens        │
+│                           │
+│  Analyze changed code     │
+│  Identify review signals  │
+│  Rank areas by attention  │
+└─────────────┬─────────────┘
+              │
+              ▼
+   Ranked Attention Queue
+              │
+              ▼
+      Engineer Review
